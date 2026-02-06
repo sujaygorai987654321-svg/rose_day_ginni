@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Ginni 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    height:100vh;
+    background:linear-gradient(135deg,#ff4e6a,#ff9aa2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:#fff;
+}
+
+/* Password Screen */
+.lock{
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    border-radius:22px;
+    padding:35px 25px;
+    width:90%;
+    max-width:360px;
+    text-align:center;
+    box-shadow:0 25px 45px rgba(0,0,0,0.35);
+    animation:fadeUp 1.2s ease;
+}
+
+.lock h2{
+    font-size:1.8rem;
+    margin-bottom:10px;
+}
+
+.lock p{
+    font-size:1rem;
+    margin-bottom:20px;
+}
+
+.lock input{
+    width:100%;
+    padding:12px;
+    border-radius:25px;
+    border:none;
+    text-align:center;
+    font-size:1rem;
+    outline:none;
+    margin-bottom:15px;
+}
+
+.lock button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:25px;
+    background:#fff;
+    color:#ff4e6a;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.error{
+    margin-top:10px;
+    color:#ffd1d1;
+    font-size:0.9rem;
+}
+
+/* Main Card */
+.card{
+    display:none;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(14px);
+    border-radius:22px;
+    padding:30px 25px;
+    width:90%;
+    max-width:390px;
+    text-align:center;
+    box-shadow:0 25px 45px rgba(0,0,0,0.35);
+    animation:fadeUp 1.2s ease;
+    position:relative;
+    z-index:2;
+}
+
+.rose{
+    font-size:4rem;
+    animation:pulse 1.5s infinite;
+}
+
+h1{
+    font-size:2rem;
+    margin:10px 0;
+}
+
+.intro{
+    font-size:1.05rem;
+    margin-bottom:18px;
+}
+
+.photos{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.photos img{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #fff;
+}
+
+.card button{
+    background:#fff;
+    color:#ff4e6a;
+    border:none;
+    padding:12px 26px;
+    border-radius:30px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.message{
+    display:none;
+    margin-top:25px;
+    font-size:1.05rem;
+    animation:fadeUp 1s ease;
+}
+
+.sign{
+    margin-top:15px;
+    font-style:italic;
+}
+
+/* Animations */
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(25px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* Petals */
+.petals span{
+    position:absolute;
+    top:-10%;
+    font-size:1.8rem;
+    animation:fall linear infinite;
+    opacity:0.8;
+}
+
+@keyframes fall{
+    to{transform:translateY(120vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Petals -->
+<div class="petals"></div>
+
+<!-- Password Screen -->
+<div class="lock" id="lockScreen">
+    <h2>🔒 One Last Step</h2>
+    <p>Enter the password to open your surprise 🌹</p>
+    <input type="password" id="password" placeholder="Hint: a special date">
+    <button onclick="unlock()">Unlock 💖</button>
+    <div class="error" id="error"></div>
+</div>
+
+<!-- Main Content -->
+<div class="card" id="mainCard">
+    <div class="rose">🌹</div>
+    <h1>Happy Rose Day Ginni</h1>
+
+    <p class="intro">
+        Yeh sirf ek rose nahi hai,<br>
+        yeh woh feeling hai jo<br>
+        tumhare saath hone se aati hai ❤️
+    </p>
+
+    <div class="photos">
+        <img src="img/together.jpeg" alt="Us together">
+        <img src="img/moment.jpeg" alt="Our moment">
+    </div>
+
+    <button onclick="reveal()">Tap slowly 💕</button>
+
+    <div class="message" id="message">
+        <p>
+            Tumhare saath har simple moment bhi special lagta hai.<br><br>
+
+            Jaise rose apni khushboo ke bina adhoora hota hai,<br>
+            waise hi main tumhare bina 🌹<br><br>
+
+            Rose Day pe bas itna kehna tha —<br>
+            <b>you are my favourite feeling, always.</b>
+        </p>
+        <div class="sign">— Yours 💌</div>
+    </div>
+</div>
+
+<script>
+const correctPassword="09112025";
+
+function unlock(){
+    const input=document.getElementById("password").value;
+    const error=document.getElementById("error");
+
+    if(input===correctPassword){
+        document.getElementById("lockScreen").style.display="none";
+        document.getElementById("mainCard").style.display="block";
+        createPetals();
+    }else{
+        error.textContent="Wrong password… try again ❤️";
+    }
+}
+
+function reveal(){
+    document.getElementById("message").style.display="block";
+    document.getElementById("bgMusic").play();
+}
+
+/* Petals */
+function createPetals(){
+    const petals=document.querySelector('.petals');
+    for(let i=0;i<20;i++){
+        let p=document.createElement('span');
+        p.innerHTML=Math.random()>0.5?'🌸':'🌹';
+        p.style.left=Math.random()*100+'vw';
+        p.style.animationDuration=(5+Math.random()*5)+'s';
+        p.style.animationDelay=Math.random()*5+'s';
+        petals.appendChild(p);
+    }
+}
+</script>
+
+</body>
+</html>
